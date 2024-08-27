@@ -1,0 +1,4 @@
+slack-sdk==3.14.0
+flask==2.2.3
+python-dotenv==1.0.0
+slackeventsapi==2.4.0
