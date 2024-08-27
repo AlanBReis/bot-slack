@@ -1,84 +1,81 @@
-# Bot Slack
+# Bot de Automação com Python e Slack API
 
-Este projeto é um bot Slack que conta mensagens enviadas pelos usuários e fornece um endpoint para consultar o número de mensagens de um usuário específico.
+Este projeto é um bot desenvolvido em Python que usa a Slack API para automatizar tarefas como abertura de tickets e respostas a perguntas frequentes. O bot também envia notificações e pode ser integrado com sistemas CI/CD.
 
-## Requisitos
+## Funcionalidades
 
-Antes de começar, você precisará ter as seguintes ferramentas instaladas:
+- Abertura de tickets
+- Respostas a perguntas frequentes
+- Gerenciamento de recursos em nuvem
+- Notificações via Slack, Discord, ou email
+- Integração com Jenkins e GitHub Actions
 
-- [Python 3.x](https://www.python.org/)
-- [ngrok](https://ngrok.com/) (para expor o servidor local para o Slack)
+## Instalação
 
-## Configuração
-
-1. **Clone o Repositório**:
-
+1. Clone o repositório:
     ```bash
     git clone https://github.com/AlanBReis/bot-slack.git
     cd bot-slack
     ```
 
-2. **Instale as Dependências**:
-
-    Crie um arquivo `requirements.txt` com o seguinte conteúdo e instale as dependências:
-
-    ```plaintext
-    Flask==2.0.3
-    slack-sdk==3.11.0
-    slackeventsapi==2.3.0
-    python-dotenv==0.21.1
+2. Crie e ative um ambiente virtual:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows: venv\Scripts\activate
     ```
 
-    Instale as dependências com:
-
+3. Instale as dependências:
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Crie um Arquivo `.env`**:
+4. Configure o arquivo `.env` com as variáveis necessárias.
 
-    Na raiz do projeto, crie um arquivo `.env` e adicione suas variáveis de ambiente:
+## Configuração do ngrok
 
-    ```plaintext
-    SLACK_TOKEN=your-slack-token
-    SIGNIN_SECRET=your-signin-secret
+Para expor seu servidor local para a internet e permitir que a Slack API se comunique com ele, você pode usar o ngrok:
+
+1. Inicie o ngrok para criar um túnel HTTP:
+    ```bash
+    ngrok http 5000
     ```
 
-4. **Configure o ngrok**:
+2. O ngrok fornecerá uma URL pública. Atualize suas configurações de webhook no Slack para usar essa URL.
 
-    - **Instale o ngrok**: Se ainda não tiver, faça o download e instale a partir do [site oficial](https://ngrok.com/download).
-    - **Inicie o ngrok**: Abra um terminal e execute o comando para criar um túnel para a porta onde seu servidor Flask está rodando (por exemplo, 5000):
+## Uso
 
-      ```bash
-      ngrok http 5000
-      ```
-
-    - **Copie o URL do ngrok**: Você verá um URL público (como `https://xxxxxx.ngrok.io`). Esse URL será usado para configurar o Slack.
-
-5. **Configure o Slack**:
-
-    - Vá até o painel de administração do Slack e configure o URL de eventos para o URL do ngrok que você copiou, com a rota `/slack/events`.
-
-6. **Execute o Servidor Flask**:
-
+- **Executar o Bot**:
     ```bash
     python bot.py
     ```
 
-7. **Verifique se o ngrok está em execução**:
+- **Exemplo de Comando**:
+    - Para abrir um ticket:
+        ```bash
+        /bot_ticket_open "Título do Ticket" "Descrição do Ticket"
+        ```
 
-    O ngrok deve estar rodando e exibindo o URL público. Certifique-se de que o ngrok e o servidor Flask estejam ambos ativos.
+## Integração CI/CD
 
-## Estrutura do Projeto
+Veja os arquivos `Jenkinsfile` e `.github/workflows/main.yml` para exemplos de configuração CI/CD.
 
-- `bot.py`: Código principal do bot.
-- `.env`: Arquivo de variáveis de ambiente (não versionado no Git).
-- `requirements.txt`: Lista de dependências do projeto.
+## Contribuição
 
-## Contribuições
-
-Sinta-se à vontade para contribuir com melhorias, correções ou novas funcionalidades. Faça um fork do repositório e envie um pull request!
+1. Faça um fork do repositório.
+2. Crie uma nova branch:
+    ```bash
+    git checkout -b minha-nova-funcionalidade
+    ```
+3. Faça as alterações e commit:
+    ```bash
+    git commit -m "Adiciona nova funcionalidade"
+    ```
+4. Envie para a branch original:
+    ```bash
+    git push origin minha-nova-funcionalidade
+    ```
+5. Crie um Pull Request.
 
 ## Licença
 
-Este projeto é licenciado sob a [MIT License](LICENSE).
+Este projeto está licenciado sob a [MIT License](LICENSE).
